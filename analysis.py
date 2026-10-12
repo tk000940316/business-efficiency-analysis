@@ -119,22 +119,24 @@ import matplotlib.pyplot as plt
 
 plt.rcParams["font.family"] = "Meiryo"
 
-analysis["総作業時間"].sort_values(ascending=False).plot(
+# ① 工程別の総作業時間
+analysis["総作業時間"].sort_values(
+    ascending=False
+).plot(
     kind="bar",
     figsize=(12, 6)
 )
 
 plt.title("工程別の総作業時間")
 plt.xlabel("工程")
-plt.ylabel("作業時間（分）")
+plt.ylabel("総作業時間（分）")
 plt.xticks(rotation=45, ha="right")
 plt.tight_layout()
+plt.savefig("images/total_work_time.png", dpi=150)
 plt.show()
+plt.close()
 
-print("------------------------------------")
-print("------------------------------------")
-print("------------------------------------")
-
+# ② 工程別の総作業時間と総修正回数
 analysis.plot(
     kind="scatter",
     x="総作業時間",
@@ -147,11 +149,14 @@ for name, row in analysis.iterrows():
         name,
         (row["総作業時間"], row["総修正回数"]),
         xytext=(5, 5),
-        textcoords="offset points"
+        textcoords="offset points",
+        fontsize=8
     )
 
 plt.title("工程別の作業時間と修正回数")
 plt.xlabel("総作業時間（分）")
 plt.ylabel("総修正回数")
 plt.tight_layout()
+plt.savefig("images/work_time_vs_corrections.png", dpi=150)
 plt.show()
+plt.close()
